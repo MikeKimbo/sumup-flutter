@@ -23,8 +23,8 @@ public class SumupFlutterPlugin implements MethodCallHandler, PluginRegistry.Act
 
   private final Activity activity;
   static String APIKey;
-
   Result result;
+  private static final int REQUEST_CODE_PAYMENT = 2;
 
   private SumupFlutterPlugin(Activity activity) {
     this.activity = activity;
@@ -41,9 +41,16 @@ public class SumupFlutterPlugin implements MethodCallHandler, PluginRegistry.Act
 
   @Override
   public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-    // Forward the activity result to the Facebook CallbackManager
-    if (requestCode == 2 && data != null) {
-      this.result.success(data.getExtras().getInt(SumUpAPI.Response.RESULT_CODE) == 1);
+    if (requestCode == REQUEST_CODE_PAYMENT && data != null) {
+      // A payment has completed. Put together the transaction info as a JSON string.
+      String info = "{\r\n" +
+      "\t\"resultcode\":" + data.getExtras().getInt(SumUpAPI.Response.RESULT_CODE) + ",\r\n" +
+      "\t\"message\":\"" + data.getExtras().getString(SumUpAPI.Response.MESSAGE) + "\",\r\n" +
+      "\t\"txcode\":\"" + data.getExtras().getString(SumUpAPI.Response.TX_CODE) + "\"\r\n" +
+      "}";
+
+      // Return it to the client.
+      this.result.success(info);
     }
     return false;
   }
@@ -90,7 +97,7 @@ public class SumupFlutterPlugin implements MethodCallHandler, PluginRegistry.Act
             .title(title)
             .build();
 
-    SumUpAPI.checkout(activity, payment, 2);
+    SumUpAPI.checkout(activity, payment, REQUEST_CODE_PAYMENT);
   }
 
 

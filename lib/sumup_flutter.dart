@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/services.dart';
@@ -18,12 +19,17 @@ class SumupFlutter {
     return await _channel.invokeMethod("presentLoginView");
   }
 
-  static Future<bool> checkout(SumupCheckoutRequest checkoutRequest) async {
+  static Future<dynamic> checkout(SumupCheckoutRequest checkoutRequest) async {
     Map<String, dynamic> args = <String, dynamic>{};
     args.putIfAbsent("amount", () => checkoutRequest.amount);
     args.putIfAbsent("title", () => checkoutRequest.title);
     args.putIfAbsent("currencyCode", () => checkoutRequest.currencyCode);
-    return await _channel.invokeMethod("sendCheckout", args);
+
+    var response = await _channel.invokeMethod("sendCheckout", args); 
+    var result = json.decode(response);
+
+    return result;
+
   }
 
   static Future<bool> isLoggedIn() async {
