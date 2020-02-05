@@ -15,7 +15,7 @@ class SumupFlutter {
     return null;
   }
 
-  static Future<Null> presentLoginView() async {
+  static Future<bool> presentLoginView() async {
     return await _channel.invokeMethod("presentLoginView");
   }
 
