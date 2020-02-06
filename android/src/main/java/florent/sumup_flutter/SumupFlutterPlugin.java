@@ -44,9 +44,9 @@ public class SumupFlutterPlugin implements MethodCallHandler, PluginRegistry.Act
     if (requestCode == REQUEST_CODE_PAYMENT && data != null) {
       // A payment has completed. Put together the transaction info as a JSON string.
       String info = "{\r\n" +
-      "\t\"resultcode\":" + data.getExtras().getInt(SumUpAPI.Response.RESULT_CODE) + ",\r\n" +
+      "\t\"resultCode\":" + data.getExtras().getInt(SumUpAPI.Response.RESULT_CODE) + ",\r\n" +
       "\t\"message\":\"" + data.getExtras().getString(SumUpAPI.Response.MESSAGE) + "\",\r\n" +
-      "\t\"txcode\":\"" + data.getExtras().getString(SumUpAPI.Response.TX_CODE) + "\"\r\n" +
+      "\t\"txCode\":\"" + data.getExtras().getString(SumUpAPI.Response.TX_CODE) + "\"\r\n" +
       "}";
 
       // Return it to the client.
