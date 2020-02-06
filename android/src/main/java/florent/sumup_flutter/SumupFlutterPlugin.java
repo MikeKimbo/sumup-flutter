@@ -72,7 +72,9 @@ public class SumupFlutterPlugin implements MethodCallHandler, PluginRegistry.Act
       checkout(amount, title, currencyCode);
     } else if (call.method.equals("isLoggedIn")) {
       result.success(isLoggedIn());
-    } else {
+    } else if (call.method.equals("logOut")) {
+      result.success(logOut());
+    else {
       result.notImplemented();
     }
   }
@@ -88,6 +90,10 @@ public class SumupFlutterPlugin implements MethodCallHandler, PluginRegistry.Act
   void login() {
     SumUpLogin sumupLogin = SumUpLogin.builder(SumupFlutterPlugin.APIKey).build();
     SumUpAPI.openLoginActivity(activity, sumupLogin, 1);
+  }
+
+  void logOut() {
+    SumUpAPI.logout();
   }
 
   void checkout(String amount, String title, String currencyCode) {
