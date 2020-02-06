@@ -20,6 +20,11 @@ class SumupFlutter {
     return null;
   }
 
+  static Future<Null> prepareForCheckout() async {
+    await _channel.invokeMethod("prepareForCheckout");
+    return null;
+  }
+
   static Future<bool> presentLoginView() async {
     return await _channel.invokeMethod("presentLoginView");
   }

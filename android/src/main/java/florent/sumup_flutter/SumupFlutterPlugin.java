@@ -75,6 +75,9 @@ public class SumupFlutterPlugin implements MethodCallHandler, PluginRegistry.Act
     } else if (call.method.equals("logOut")) {
       logOut();
       result.success(true);
+    } else if (call.method.equals("prepareForCheckout")) {
+      prepareForCheckout();
+      result.success(true);
     }
     else {
       result.notImplemented();
@@ -96,6 +99,10 @@ public class SumupFlutterPlugin implements MethodCallHandler, PluginRegistry.Act
 
   void logOut() {
     SumUpAPI.logout();
+  }
+
+  void prepareForCheckout() {
+    SumUpAPI.prepareForCheckout();
   }
 
   void checkout(String amount, String title, String currencyCode) {
