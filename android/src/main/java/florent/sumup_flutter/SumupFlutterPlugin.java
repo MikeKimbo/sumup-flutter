@@ -74,6 +74,7 @@ public class SumupFlutterPlugin implements MethodCallHandler, PluginRegistry.Act
       result.success(isLoggedIn());
     } else if (call.method.equals("logOut")) {
       result.success(logOut());
+    }
     else {
       result.notImplemented();
     }

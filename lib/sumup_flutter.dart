@@ -15,7 +15,7 @@ class SumupFlutter {
     return null;
   }
 
-  static Future<Null> logOut(String APIKey) async {
+  static Future<Null> logOut() async {
     await _channel.invokeMethod("logOut");
     return null;
   }
